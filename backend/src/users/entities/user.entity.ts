@@ -1,5 +1,7 @@
 import { Common } from 'src/common/common.entity';
-import { Column, Entity } from 'typeorm';
+import { Tweets } from 'src/tweets/entities/tweets.entity';
+
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export class Users extends Common {
@@ -11,4 +13,7 @@ export class Users extends Common {
 
   @Column('varchar')
   password: string;
+
+  @OneToMany(() => Tweets, (tweets) => tweets.users)
+  tweets: Tweets;
 }
