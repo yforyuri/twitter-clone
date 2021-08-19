@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { createTweetDto } from './dtos/createTweet.dto';
 import { TweetsService } from './tweets.service';
@@ -15,5 +23,10 @@ export class TweetsController {
     @Body() createTweetDto: createTweetDto,
   ) {
     return await this.tweetService.createTweet(req, createTweetDto);
+  }
+
+  @Get()
+  async getTweets(@Query() query: { page: string }) {
+    return await this.tweetService.getTweets(query);
   }
 }

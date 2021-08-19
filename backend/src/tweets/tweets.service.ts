@@ -19,4 +19,21 @@ export class TweetsService {
       users: req.user,
     });
   }
+
+  async getTweets(query) {
+    return await this.tweetsRepository
+      .createQueryBuilder('tweets')
+      .leftJoin('tweets.users', 'users')
+      .select([
+        'tweets.id',
+        'tweets.tweet',
+        'tweets.createdAt',
+        'users.id',
+        'users.nickname',
+      ])
+      .orderBy('tweets.createdAt', 'DESC')
+      .take(10)
+      .skip(query.page ? query.page * 10 : 0)
+      .getMany();
+  }
 }
