@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { async } from 'rxjs';
 import { Users } from './entities/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
