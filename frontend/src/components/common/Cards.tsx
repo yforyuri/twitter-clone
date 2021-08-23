@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ITweet } from '../interfaces';
+import { ITweet } from '../../interfaces';
 import Card from './Card';
 
 interface CardsPropd {

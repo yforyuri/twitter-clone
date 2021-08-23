@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
 import React, { FC } from 'react';
-import { ITweet } from '../interfaces';
+import { ITweet } from '../../interfaces';
 import ProfileIcon from './ProfileIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

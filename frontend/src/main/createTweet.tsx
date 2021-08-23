@@ -2,10 +2,21 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
-import ProfileIcon from '../components/ProfileIcon';
+import { MutatorCallback } from 'swr/dist/types';
+import ProfileIcon from '../components/common/ProfileIcon';
 
-const CreateTweet: FC = () => {
+import { ITweet } from '../interfaces';
+
+interface CreateTweetProps {
+  mutate: (
+    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
+    shouldRevalidate?: boolean | undefined,
+  ) => Promise<ITweet[] | undefined>;
+}
+
+const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
   const token = localStorage.getItem('token');
+
   const [tweet, setTweet] = useState<string>('');
 
   const onChangeTweet = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,9 +40,10 @@ const CreateTweet: FC = () => {
 
       if (response.statusText === 'Created') {
         setTweet('');
+        mutate();
       }
     } catch (error) {
-      console.error;
+      console.error(error);
     }
   };
 
@@ -44,12 +56,12 @@ const CreateTweet: FC = () => {
       </div>
       <form className="w-full" onSubmit={onSubmitTweet}>
         <input
-          className="w-full text-xl focus:outline-none place-holder-grey-500 my-6"
-          placeholder="What's happening"
+          className="w-full text-xl focus:outline-none place-holder-grey-600 my-6"
+          placeholder="What's happening?"
           value={tweet}
           onChange={onChangeTweet}
         />
-        <div className="flex items-center text-purple-500 pb-1 border-b-1 mr-4">
+        <div className="flex items-center text-purple-500 pb-2 border-b-1 mr-4">
           <FontAwesomeIcon icon={faTwitter} />
           <span className="ml-1 text-sm font-bold">Twitter Clone!</span>
         </div>

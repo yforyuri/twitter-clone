@@ -6,6 +6,7 @@ import { Users } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -56,5 +57,9 @@ export class UsersService {
     const token = this.jwtService.sign({ id: user.id });
 
     return { token };
+  }
+
+  async getMe(req: Request) {
+    return { userId: req.user };
   }
 }
