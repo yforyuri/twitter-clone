@@ -22,7 +22,7 @@ const Card: FC<CardsProps> = ({ tweet }) => {
       <div className="mt-4 mx-4">
         <ProfileIcon />
       </div>
-      <div className="mt-6 text-sm bg-red-100 w-full ml-4">
+      <div className="mt-6 text-sm w-full ml-4">
         <span className="font-bold">{tweet.users.nickname}</span>
         <span className="ml-2 text-gray-500">
           {dayjs(tweet.createdAt).locale('ko').fromNow()}

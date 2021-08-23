@@ -3,6 +3,7 @@ import React, { FC, useEffect } from 'react';
 import useSWR from 'swr';
 import Cards from '../components/Cards';
 import { ITweet } from '../interfaces';
+import CreateTweet from '../main/createTweet';
 
 const Main: FC = () => {
   const fetcher = async (url: string) => {
@@ -23,7 +24,12 @@ const Main: FC = () => {
   if (!data) return <div>loading...</div>;
   if (error) return <div>errer</div>;
 
-  return <Cards tweets={data}></Cards>;
+  return (
+    <>
+      <CreateTweet />
+      <Cards tweets={data}></Cards>
+    </>
+  );
 };
 
 export default Main;
