@@ -7,6 +7,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ title }) => {
   const onClickLogout = () => {
     localStorage.removeItem('token');
+    window.location.reload;
   };
 
   return (

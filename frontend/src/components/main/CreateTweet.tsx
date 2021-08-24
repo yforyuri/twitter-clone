@@ -6,6 +6,7 @@ import { MutatorCallback } from 'swr/dist/types';
 import ProfileIcon from '../common/ProfileIcon';
 
 import { ITweet } from '../../interfaces';
+import { useInput } from '../../hooks';
 
 interface CreateTweetProps {
   mutate: (
@@ -24,6 +25,7 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
 
     setTweet(value);
   };
+
   const onSubmitTweet = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
