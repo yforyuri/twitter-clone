@@ -1,4 +1,3 @@
-import { title } from 'process';
 import React, { FC } from 'react';
 
 interface HeaderProps {
@@ -15,7 +14,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
       {title}
       <div>
         <button
-          className="border-1 border-gray-200 text-gray-200 text-xs py-1 px-2 rounded-full hover:border-red-500 hover:text-red-500"
+          className="border-1 border-gray-200 text-gray-200 text-xs py-1 px-2 rounded-full hover:border-purple-500 hover:text-purple-500"
           onClick={onClickLogout}
         >
           Log out

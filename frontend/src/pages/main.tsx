@@ -4,7 +4,7 @@ import useSWR, { mutate } from 'swr';
 import Cards from '../components/common/Cards';
 import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
-import CreateTweet from '../main/CreateTweet';
+import CreateTweet from '../components/main/CreateTweet';
 
 const Main: FC = () => {
   const fetcher = async (url: string) => {

@@ -21,7 +21,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  async getMe(@Req() req: Request) {
+  async getMe(@Req() req: Request): Promise<number> {
     return this.usersServise.getMe(req);
   }
 }

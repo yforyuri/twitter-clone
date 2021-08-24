@@ -59,7 +59,7 @@ export class UsersService {
     return { token };
   }
 
-  async getMe(req: Request) {
-    return { userId: req.user };
+  async getMe(req: Request): Promise<number> {
+    return +req.user;
   }
 }

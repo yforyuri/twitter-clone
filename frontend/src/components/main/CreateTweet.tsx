@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MutatorCallback } from 'swr/dist/types';
-import ProfileIcon from '../components/common/ProfileIcon';
+import ProfileIcon from '../common/ProfileIcon';
 
-import { ITweet } from '../interfaces';
+import { ITweet } from '../../interfaces';
 
 interface CreateTweetProps {
   mutate: (
