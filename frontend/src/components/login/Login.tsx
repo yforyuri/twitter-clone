@@ -11,6 +11,8 @@ const Login: FC = () => {
   const [nickname, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [passwordChk, onChangePasswordChk] = useInput('');
+  const [loginEmail, onChangeLoginEmail] = useInput('');
+  const [loginPassword, onChangeLoginPassword] = useInput('');
 
   const onSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
     try {
@@ -44,6 +46,30 @@ const Login: FC = () => {
     }
   }, [passwordError]);
 
+  const onSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+
+      if (!loginEmail || !loginPassword) return;
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACK_URL}/users/login`,
+        {
+          email: loginEmail,
+          password: loginPassword,
+        },
+      );
+
+      console.log(response);
+      if (response.statusText === 'Created') {
+        localStorage.setItem('token', response.data.token);
+        window.location.reload;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex">
       <div className="flex justify-center items-center bg-purple-300 flex-auto">
@@ -52,7 +78,7 @@ const Login: FC = () => {
       <div className="max-w-screen-sm m-8 flex-auto">
         <div>
           <FontAwesomeIcon
-            className="text-purple-500 text-4xl"
+            className="text-purple-500 text-4xl mb-8"
             icon={faTwitter}
           />
         </div>
@@ -95,11 +121,40 @@ const Login: FC = () => {
             <input
               className="input w-96 text-2xl bg-white"
               type="submit"
-              value="sign up"
+              value="Sign up"
             />
             {passwordError && (
               <div className="text-red-600 text-sm">{passwordError}</div>
             )}
+          </form>
+        </div>
+
+        <div className="mb-8">
+          <div className="text-xl mb-2">
+            Already have an account? <span className="font-bold">Log in</span>
+          </div>
+          <form onSubmit={onSubmitLogin}>
+            <input
+              className="input mb-2 w-96 text-2xl"
+              placeholder="Email"
+              type="text"
+              value={loginEmail}
+              onChange={onChangeLoginEmail}
+            />
+            <br />
+            <input
+              className="input mb-2 w-96 text-2xl"
+              placeholder="Password"
+              type="password"
+              value={loginPassword}
+              onChange={onChangeLoginPassword}
+            />
+            <br />
+            <input
+              className="input w-96 text-2xl bg-white"
+              type="submit"
+              value="Log in"
+            />
           </form>
         </div>
       </div>
