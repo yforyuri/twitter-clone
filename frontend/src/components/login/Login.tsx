@@ -11,6 +11,7 @@ const Login: FC = () => {
   const [nickname, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [passwordChk, onChangePasswordChk] = useInput('');
+
   const [loginEmail, onChangeLoginEmail] = useInput('');
   const [loginPassword, onChangeLoginPassword] = useInput('');
 
@@ -31,7 +32,7 @@ const Login: FC = () => {
 
       if (response.statusText === 'Created') {
         localStorage.setItem('token', response.data.token);
-        window.location.reload;
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);
@@ -60,10 +61,9 @@ const Login: FC = () => {
         },
       );
 
-      console.log(response);
       if (response.statusText === 'Created') {
         localStorage.setItem('token', response.data.token);
-        window.location.reload;
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);
