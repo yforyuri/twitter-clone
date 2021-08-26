@@ -39,14 +39,6 @@ const Login: FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (password === passwordChk) {
-      setPasswordError('');
-    } else {
-      setPasswordError('비밀번호가 일치하지 않습니다.');
-    }
-  }, [passwordError]);
-
   const onSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -69,6 +61,14 @@ const Login: FC = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (password === passwordChk) {
+      setPasswordError('');
+    } else {
+      setPasswordError('비밀번호가 일치하지 않습니다.');
+    }
+  }, [password, passwordChk]);
 
   return (
     <div className="min-h-screen flex">

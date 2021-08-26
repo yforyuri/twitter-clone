@@ -27,7 +27,7 @@ export class UsersService {
 
     const token = this.jwtService.sign({ id: user.id });
 
-    return { email: user.email, nickname: user.nickname };
+    return { token };
   }
 
   async login(loginDto: LoginDto) {
