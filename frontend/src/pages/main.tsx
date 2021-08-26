@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { FC, useEffect } from 'react';
 import useSWR, { mutate } from 'swr';
-import Cards from '../components/common/Cards';
 import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
 import CreateTweet from '../components/main/CreateTweet';
+import Cards from '../components/common/card/Cards';
 
 const Main: FC = () => {
   const fetcher = async (url: string) => {
