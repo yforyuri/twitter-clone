@@ -22,6 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { LikeTweetOutputDto } from 'src/likes/dtos/likeTweet.dto';
 import { UpdateResult } from 'typeorm';
+import { DeleteTweetOutputDto } from './dtos/deleteTweet.dto';
 
 @ApiTags('tweets')
 @Controller('tweets')
@@ -49,8 +50,8 @@ export class TweetsController {
     description: 'tweet id',
   })
   @ApiOkResponse({
-    type: UpdateResult,
-    description: 'delete tweet',
+    type: DeleteTweetOutputDto,
+    description: 'delete tweet success',
   })
   @ApiResponse({
     status: 401,
@@ -58,7 +59,10 @@ export class TweetsController {
   })
   @UseGuards(JwtAuthGuard)
   @Delete(':tweetId')
-  async deleteTweet(@Req() req: Request, @Param() param: { tweetId: string }) {
+  async deleteTweet(
+    @Req() req: Request,
+    @Param() param: { tweetId: string },
+  ): Promise<DeleteTweetOutputDto> {
     return await this.tweetService.deleteTweet(req, param);
   }
 }

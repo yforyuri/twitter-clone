@@ -4,6 +4,7 @@ import { Like, Repository } from 'typeorm';
 import { Tweets } from './entities/tweets.entity';
 import { Request } from 'express';
 import { Likes } from 'src/likes/entities/likes.entity';
+import { DeleteTweetOutputDto } from './dtos/deleteTweet.dto';
 
 @Injectable()
 export class TweetsService {
@@ -40,7 +41,10 @@ export class TweetsService {
       .getMany();
   }
 
-  async deleteTweet(req: Request, param: { tweetId: string }) {
+  async deleteTweet(
+    req: Request,
+    param: { tweetId: string },
+  ): Promise<DeleteTweetOutputDto> {
     const tweet = await this.tweetsRepository.findOne({
       where: {
         id: param.tweetId,
@@ -70,6 +74,10 @@ export class TweetsService {
       );
     }
 
-    return await this.tweetsRepository.softDelete({ id: +param.tweetId });
+    const deleteTweetResult = await this.tweetsRepository.softDelete({
+      id: +param.tweetId,
+    });
+
+    return deleteTweetResult.affected === 1 ? { ok: true } : { ok: false };
   }
 }
