@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
-import React, { FC } from 'react';
+import React, { FC, MutableRefObject } from 'react';
 import { ITweet } from '../../../interfaces';
 import ProfileIcon from '../ProfileIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,12 +11,20 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { faRetweet, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
+import Ellipsis from './Ellipsis';
+import { MutatorCallback } from 'swr/dist/types';
+import { mutate } from 'swr';
 
-interface CardsProps {
+export interface CardsProps {
   tweet: ITweet;
+  mutate: (
+    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
+    shouldRevalidate?: boolean | undefined,
+  ) => Promise<ITweet[] | undefined>;
+  ellipsisEl: MutableRefObject<HTMLDivElement | null>;
 }
 
-const Card: FC<CardsProps> = ({ tweet }) => {
+const Card: FC<CardsProps> = ({ tweet, mutate, ellipsisEl }) => {
   dayjs.extend(relativeTime);
   return (
     <li className="flex border-b-1">
@@ -39,9 +47,7 @@ const Card: FC<CardsProps> = ({ tweet }) => {
             <span className="ml-2">123</span>
           </div>
           <Like tweet={tweet} />
-          <div className="w-full">
-            <FontAwesomeIcon icon={faEllipsisH} />
-          </div>
+          <Ellipsis tweet={tweet} mutate={mutate} ellipsisEl={ellipsisEl} />
         </div>
       </div>
     </li>
