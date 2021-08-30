@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';
-import Main from './pages/Main';
+import Main from './pages/main';
 
 const App: FC = () => {
   // const token = localStorage.getItem('token');
