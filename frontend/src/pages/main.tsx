@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { FC, useEffect } from 'react';
-import useSWR, { mutate } from 'swr';
+import React, { FC } from 'react';
+import useSWR from 'swr';
 import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
 import CreateTweet from '../components/main/CreateTweet';

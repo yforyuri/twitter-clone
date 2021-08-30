@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';

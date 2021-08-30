@@ -5,15 +5,11 @@ import React, { FC, MutableRefObject } from 'react';
 import { ITweet } from '../../../interfaces';
 import ProfileIcon from '../ProfileIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faComment as farComment,
-  faHeart as farHeart,
-} from '@fortawesome/free-regular-svg-icons';
-import { faRetweet, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faComment as farComment } from '@fortawesome/free-regular-svg-icons';
+import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
 import Ellipsis from './Ellipsis';
 import { MutatorCallback } from 'swr/dist/types';
-import { mutate } from 'swr';
 
 export interface CardsProps {
   tweet: ITweet;

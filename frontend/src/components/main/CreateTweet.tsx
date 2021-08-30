@@ -4,9 +4,7 @@ import axios from 'axios';
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MutatorCallback } from 'swr/dist/types';
 import ProfileIcon from '../common/ProfileIcon';
-
 import { ITweet } from '../../interfaces';
-import { useInput } from '../../hooks';
 
 interface CreateTweetProps {
   mutate: (

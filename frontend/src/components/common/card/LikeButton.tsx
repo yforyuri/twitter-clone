@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { ITweet } from '../../../interfaces';
 import axios from 'axios';
 import { MutatorCallback } from 'swr/dist/types';
@@ -53,7 +53,7 @@ const LikeButton: FC<LikeButtonProps> = ({ tweet, countMutate }) => {
     }
   };
 
-  const { data, error, mutate } = useSWR(
+  const { data, mutate } = useSWR(
     `${process.env.REACT_APP_BACK_URL}/likes/islike/tweets/${tweet.id}`,
     fetcher,
   );

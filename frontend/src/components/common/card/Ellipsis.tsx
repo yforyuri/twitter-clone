@@ -6,11 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faClone } from '@fortawesome/free-regular-svg-icons';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { MeContext } from '../../../contexts';
-import { LikeProps } from './Like';
-import { type } from 'os';
 import axios from 'axios';
-import { ITweet } from '../../../interfaces';
-import { MutatorCallback } from 'swr/dist/types';
 import { CardsProps } from './Card';
 
 type EllipsisProps = CardsProps;
