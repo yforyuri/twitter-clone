@@ -7,9 +7,9 @@ import { faTrashAlt, faClone } from '@fortawesome/free-regular-svg-icons';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { MeContext } from '../../../contexts';
 import axios from 'axios';
-import { CardsProps } from './Card';
+import { CardProps } from './Card';
 
-type EllipsisProps = CardsProps;
+type EllipsisProps = CardProps;
 
 const Ellipsis: FC<EllipsisProps> = ({ tweet, mutate, ellipsisEl }) => {
   const { me } = useContext(MeContext);

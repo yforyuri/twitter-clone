@@ -9,18 +9,14 @@ import { faComment as farComment } from '@fortawesome/free-regular-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
 import Ellipsis from './Ellipsis';
-import { MutatorCallback } from 'swr/dist/types';
+import { CreateTweetProps } from '../../main/CreateTweet';
 
-export interface CardsProps {
+export interface CardProps extends CreateTweetProps {
   tweet: ITweet;
-  mutate: (
-    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
-    shouldRevalidate?: boolean | undefined,
-  ) => Promise<ITweet[] | undefined>;
   ellipsisEl: MutableRefObject<HTMLDivElement | null>;
 }
 
-const Card: FC<CardsProps> = ({ tweet, mutate, ellipsisEl }) => {
+const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
   dayjs.extend(relativeTime);
   return (
     <li className="flex border-b-1">
