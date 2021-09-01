@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useEffect } from 'react';
+import React, { createRef, FC, useEffect, useRef } from 'react';
 import useSWR, { useSWRInfinite } from 'swr';
 import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
@@ -12,6 +12,10 @@ const getKey = (pageIndex: number, previusPageData: any) => {
 };
 
 const Main: FC = () => {
+  const lastEl = createRef<HTMLDivElement>();
+  const intersectionObserver = useRef<IntersectionObserver>();
+  const sizeRef = useRef<number>(1);
+
   const fetcher = async (url: string) => {
     try {
       const response = await axios.get(url);
@@ -26,11 +30,26 @@ const Main: FC = () => {
     fetcher,
   );
 
-  const onClickMore = () => {
-    setSize(size + 1);
-  };
+  // const onClickMore = () => {
+  //   setSize(size + 1);
+  // };
 
-  useEffect(() => console.log(data, size), [data]);
+  useEffect(() => {
+    // console.log(data, size), [data];
+    if (data && !data[size - 1]) return;
+    if (!intersectionObserver.current && lastEl.current) {
+      intersectionObserver.current = new IntersectionObserver(
+        async (entries) => {
+          if (!entries[0].isIntersecting) return;
+
+          sizeRef.current += 1;
+
+          await setSize(sizeRef.current);
+        },
+      );
+      intersectionObserver.current?.observe(lastEl.current);
+    }
+  }, [lastEl]);
 
   if (!data) return <div>loading...</div>;
   if (error) return <div>errer</div>;
@@ -42,9 +61,9 @@ const Main: FC = () => {
       {data.map((tweets, i) => {
         return <Cards key={i} tweets={tweets} mutate={mutate} />;
       })}
-      <button className="text-2xl" onClick={onClickMore}>
-        More
-      </button>
+      <div ref={lastEl} className="text-white">
+        scrolling
+      </div>
     </>
   );
 };

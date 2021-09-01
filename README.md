@@ -1,11 +1,15 @@
 # Twitter clone
 
-✔️ `twitter clone coding for learning React and NestJS`  
-💬 Language - **TypeScript**  
+✔️ `twitter clone coding for learning React and NestJS`
+
+💬 Language - **TypeScript**
+
 👩‍🚀 Framework  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BE - **NestJS**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FE - **React**  
-🌏 DataBase - **PostgreSQL**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FE - **React**
+
+🌏 DataBase - **PostgreSQL**
+
 🚀 Deploy  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BE - **HEROKU**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FE - **Netlify**  

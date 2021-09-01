@@ -30,3 +30,14 @@
 .text-20-rem {
   font-size: 20rem;
 }
+
+::-moz-selection {
+  --tw-border-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-border-opacity));
+  color: #fff;
+}
+::selection {
+  --tw-border-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-border-opacity));
+  color: #fff;
+}
