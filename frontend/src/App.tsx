@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';
 import Main from './pages/main';
+import Profile from './pages/Profile';
 
 const App: FC = () => {
   // const token = localStorage.getItem('token');
@@ -39,6 +40,7 @@ const App: FC = () => {
         <Layout>
           <Switch>
             <Route exact path="/" component={Main} />
+            <Route exact path="/profile/:userId" component={Profile} />
           </Switch>
         </Layout>
       </Router>

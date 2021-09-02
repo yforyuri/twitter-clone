@@ -5,13 +5,14 @@ import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
 import CreateTweet from '../components/main/CreateTweet';
 import Cards from '../components/common/card/Cards';
+import UserInfo from '../components/profile/UserInfo';
 
 const getKey = (pageIndex: number, previusPageData: any) => {
   if (previusPageData && !previusPageData.length) return null;
   return `${process.env.REACT_APP_BACK_URL}/tweets?page=${pageIndex}`;
 };
 
-const Main: FC = () => {
+const Profile: FC = () => {
   const lastEl = createRef<HTMLDivElement>();
   const intersectionObserver = useRef<IntersectionObserver>();
   const sizeRef = useRef<number>(1);
@@ -56,7 +57,8 @@ const Main: FC = () => {
 
   return (
     <>
-      <Header title="Home" />
+      <Header title="Profile" />
+      <UserInfo />
       <CreateTweet mutate={mutate} />
       {data.map((tweets, i) => {
         return <Cards key={i} tweets={tweets} mutate={mutate} />;
@@ -68,4 +70,4 @@ const Main: FC = () => {
   );
 };
 
-export default Main;
+export default Profile;

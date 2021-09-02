@@ -1,5 +1,4 @@
 import React, { createRef, FC, MutableRefObject, useRef } from 'react';
-import { MutatorCallback } from 'swr/dist/types';
 import { ITweet } from '../../../interfaces';
 import { CreateTweetProps } from '../../main/CreateTweet';
 import Card from './Card';
