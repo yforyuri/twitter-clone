@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { FC, useEffect } from 'react';
 import useSWR from 'swr';
+import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 import { toastError } from '../../utils/toastify';
 
 interface ProfileIconProps {
@@ -10,29 +11,25 @@ interface ProfileIconProps {
 }
 
 const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
-  const fetcher = async (url: string) => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACK_URL}/users/profile/image/${userId}`,
-      );
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      toastError(error.response.data.message);
-    }
-  };
-
-  const { data } = useSWR(
-    `${process.env.REACT_APP_BACK_URL}/profile/image/${userId}`,
-    fetcher,
-  );
+  const { data } = useGetProfileImage(userId);
 
   useEffect(() => console.log(data), [data]);
 
   return (
-    <div className="rounded-full h-12 w-12 flex items-center justify-center bg-gray-300 hover:bg-gray-400">
-      <FontAwesomeIcon className="text-3xl text-grey-600" icon={faUser} />
-    </div>
+    <>
+      {data && data.profiles.length !== 0 ? (
+        <div className="h-12 w-12 ">
+          <img
+            className="object-cover rounded-full h-12 w-12"
+            src={`${process.env.REACT_APP_BACK_URL}/uploads/${data.profiles[0].filename}`}
+          />
+        </div>
+      ) : (
+        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-gray-300 hover:bg-gray-400">
+          <FontAwesomeIcon className="text-3xl text-gray-600" icon={faUser} />
+        </div>
+      )}
+    </>
   );
 };
 

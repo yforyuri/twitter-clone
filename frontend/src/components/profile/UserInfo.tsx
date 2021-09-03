@@ -4,11 +4,14 @@ import { useParams } from 'react-router-dom';
 import { MeContext } from '../../contexts';
 import ProfileIcon from '../common/ProfileIcon';
 import { toastError, toastSuccess } from '../../utils/toastify';
+import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 
 const UserInfo: FC = () => {
   const { me } = useContext(MeContext);
 
   const { userId }: { userId: string } = useParams();
+
+  const { mutate } = useGetProfileImage(+userId);
 
   const onChangeProfileUpload = async (e: any) => {
     try {
@@ -30,6 +33,7 @@ const UserInfo: FC = () => {
         },
       );
       if (response.statusText === 'OK') {
+        mutate();
         toastSuccess('Image upload success');
       }
     } catch (error) {
