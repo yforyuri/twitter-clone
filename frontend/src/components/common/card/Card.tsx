@@ -21,7 +21,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
   return (
     <li className="flex border-b-1">
       <div className="mt-4 mx-4">
-        <ProfileIcon />
+        <ProfileIcon userId={tweet.users.id} />
       </div>
       <div className="mt-6 text-sm w-full ml-4">
         <span className="font-bold">{tweet.users.nickname}</span>

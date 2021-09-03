@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';
 import Main from './pages/main';
-import Profile from './pages/Profile';
+import Profile from './pages/profile';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: FC = () => {
   // const token = localStorage.getItem('token');
@@ -44,6 +46,7 @@ const App: FC = () => {
           </Switch>
         </Layout>
       </Router>
+      <ToastContainer />
     </MeProvider>
   );
 };

@@ -38,7 +38,9 @@ const LeftMenu: FC = () => {
             );
           })}
         </nav>
-        <button className="bg-purple-500 hover:bg-purple-600 text-white font-black text-lg px-24 py-4 rounded-full mt-8"></button>
+        <button className="bg-purple-500 hover:bg-purple-600 text-white font-black text-lg px-24 py-4 rounded-full mt-8">
+          Tweet
+        </button>
       </div>
     </div>
   );

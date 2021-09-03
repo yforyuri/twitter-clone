@@ -13,6 +13,7 @@ interface MenuButtonProps {
 
 const MenuButton: FC<MenuButtonProps> = ({ title, icon, link }) => {
   const { me } = useContext(MeContext);
+
   return (
     <Link
       className="flex items-center px-6 py-3 rounded-full hover:bg-gray-200 my-2"

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createRef, FC, useEffect, useRef } from 'react';
+import React, { createRef, FC, useEffect, useRef, useState } from 'react';
 import { useSWRInfinite } from 'swr';
 import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';

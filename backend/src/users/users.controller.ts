@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Put,
   Req,
@@ -45,5 +46,10 @@ export class UsersController {
     @UploadedFiles() files: Array<Express.Multer.File>,
   ) {
     return await this.usersServise.profileImage(req, files);
+  }
+
+  @Get('profile/image/:userId')
+  async getProfileImage(@Param() param: { userId: string }) {
+    return await this.usersServise.getProfileImage(param);
   }
 }

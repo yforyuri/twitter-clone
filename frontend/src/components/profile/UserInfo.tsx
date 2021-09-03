@@ -3,13 +3,14 @@ import React, { FC, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { MeContext } from '../../contexts';
 import ProfileIcon from '../common/ProfileIcon';
+import { toastError, toastSuccess } from '../../utils/toastify';
 
 const UserInfo: FC = () => {
   const { me } = useContext(MeContext);
 
   const { userId }: { userId: string } = useParams();
 
-  const onChangeProfileupload = async (e: any) => {
+  const onChangeProfileUpload = async (e: any) => {
     try {
       const token = localStorage.getItem('token');
       const imageFile = e.target.files[0];
@@ -28,34 +29,41 @@ const UserInfo: FC = () => {
           },
         },
       );
-
-      console.log(response);
+      if (response.statusText === 'OK') {
+        toastSuccess('Image upload success');
+      }
     } catch (error) {
       console.error(error);
+      toastError(error.response.data.message);
     }
   };
   return (
-    <div>
+    <div className="flex border-b-1">
       <div>
-        <ProfileIcon />
+        <ProfileIcon userId={+userId} />
         <div>nickname</div>
         {me === +userId && (
-          <div>
-            <input type="file" onChange={onChangeProfileupload} />
+          <div className="relative rounded-full px-2 py-1 font-black text-purple-500 text-xs mx-2 mt-1 text-center">
+            <input
+              className="w-full opacity-0 absolute"
+              type="file"
+              onChange={onChangeProfileUpload}
+            />
+            <span>upload profile image</span>
           </div>
         )}
       </div>
-      <div className="flex justify-around text-center w-full">
+      <div className="flex justify-around w-full text-center">
         <div>
-          <div>Followers</div>
+          <div>Follower</div>
           <div>123</div>
         </div>
         <div>
-          <div>Followings</div>
+          <div>Following</div>
           <div>123</div>
         </div>
         <div>
-          <div>Tweets</div>
+          <div>Tweet</div>
           <div>123</div>
         </div>
       </div>

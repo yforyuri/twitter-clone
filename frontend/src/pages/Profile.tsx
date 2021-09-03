@@ -3,7 +3,6 @@ import React, { createRef, FC, useEffect, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
 import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
-import CreateTweet from '../components/main/CreateTweet';
 import Cards from '../components/common/card/Cards';
 import UserInfo from '../components/profile/UserInfo';
 
@@ -59,7 +58,6 @@ const Profile: FC = () => {
     <>
       <Header title="Profile" />
       <UserInfo />
-      <CreateTweet mutate={mutate} />
       {data.map((tweets, i) => {
         return <Cards key={i} tweets={tweets} mutate={mutate} />;
       })}
