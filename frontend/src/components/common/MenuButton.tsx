@@ -1,6 +1,5 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useParams } from 'react-router';
 import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MeContext } from '../../contexts';

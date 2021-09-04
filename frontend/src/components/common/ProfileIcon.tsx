@@ -1,10 +1,7 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import React, { FC, useEffect } from 'react';
-import useSWR from 'swr';
 import { useGetProfileImage } from '../../hooks/useGetProfileImage';
-import { toastError } from '../../utils/toastify';
 
 interface ProfileIconProps {
   userId: number;
