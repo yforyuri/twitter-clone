@@ -71,17 +71,17 @@ export class UsersService {
   }
 
   async profileImage(req: Request, files: Array<Express.Multer.File>) {
-    const existPrifiles = await this.profilesRepository.findOne({
+    const existProfiles = await this.profilesRepository.findOne({
       where: {
         user: req.user,
       },
     });
 
-    if (existPrifiles) {
+    if (existProfiles) {
       const fileUnlink = promisify(unlink);
-      await fileUnlink(`./uploads/${existPrifiles.filename}`);
+      await fileUnlink(`./uploads/${existProfiles.filename}`);
 
-      await this.profilesRepository.delete({ id: existPrifiles.id });
+      await this.profilesRepository.delete({ id: existProfiles.id });
     }
 
     const profile = await this.profilesRepository.create({

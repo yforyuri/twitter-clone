@@ -14,7 +14,7 @@ export const useGetProfileImage = (userId: number) => {
   };
 
   const { data, mutate } = useSWR(
-    `${process.env.REACT_APP_BACK_URL}/profile/image/${userId}`,
+    `${process.env.REACT_APP_BACK_URL}/users/profile/image/${userId}`,
     fetcher,
   );
 
