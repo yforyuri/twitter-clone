@@ -6,7 +6,6 @@ import {
   Post,
   Put,
   Req,
-  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -16,8 +15,14 @@ import { CreateUSerDto } from './dtos/createUser.dto';
 import { LoginDto } from './dtos/login.dto';
 import { UsersService } from './users.service';
 import { Request } from 'express';
-import { AnyFilesInterceptor, MulterModule } from '@nestjs/platform-express';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import {
+  ModifyIntroduceInputDto,
+  ModifyIntroduceOutputDto,
+} from './dtos/modifyIntroduce.dto';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersServise: UsersService) {}
@@ -51,5 +56,19 @@ export class UsersController {
   @Get('profile/image/:userId')
   async getProfileImage(@Param() param: { userId: string }) {
     return await this.usersServise.getProfileImage(param);
+  }
+
+  @ApiOperation({ summary: 'modify info' })
+  @ApiOkResponse({ type: ModifyIntroduceOutputDto })
+  @UseGuards(JwtAuthGuard)
+  @Put('introduce')
+  async modifyIntroduce(
+    @Req() req: Request,
+    @Body() modifyIntroduceInputDto: ModifyIntroduceInputDto,
+  ): Promise<ModifyIntroduceOutputDto> {
+    return await this.usersServise.modifyIntroduce(
+      req,
+      modifyIntroduceInputDto,
+    );
   }
 }

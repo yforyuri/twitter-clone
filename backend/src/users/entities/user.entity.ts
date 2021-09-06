@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 import { Common } from 'src/common/common.entity';
 import { Likes } from 'src/likes/entities/likes.entity';
 import { Tweets } from 'src/tweets/entities/tweets.entity';
@@ -9,11 +11,19 @@ export class Users extends Common {
   @Column('varchar', { unique: true })
   email: string;
 
-  @Column('varchar', { select: false })
+  @Column('varchar')
   nickname: string;
 
-  @Column('varchar')
+  @Column('varchar', { select: false })
   password: string;
+
+  @ApiProperty({
+    example: 'Hello!',
+    description: 'introdue comment',
+  })
+  @IsNotEmpty()
+  @Column('varchar', { default: null })
+  introduce: string;
 
   @OneToMany(() => Tweets, (tweets) => tweets.users)
   tweets: Tweets[];
