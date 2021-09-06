@@ -18,7 +18,7 @@ const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
         <div className="h-12 w-12 ">
           <img
             className="object-cover rounded-full h-12 w-12"
-            src={`${process.env.REACT_APP_BACK_URL}/uploads/${data.profiles[0].filename}`}
+            src={`${process.env.REACT_APP_AWS_S3}/profile-yforyuri/${data.profiles[0].filename}`}
           />
         </div>
       ) : (

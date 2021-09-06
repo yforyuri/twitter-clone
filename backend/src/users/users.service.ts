@@ -8,8 +8,6 @@ import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Profiles } from './entities/profiles.entity';
-import { unlink } from 'fs';
-import { promisify } from 'util';
 
 @Injectable()
 export class UsersService {
@@ -70,7 +68,7 @@ export class UsersService {
     return +req.user;
   }
 
-  async profileImage(req: Request, files: Array<Express.Multer.File>) {
+  async profileImage(req: Request, files: Array<Express.MulterS3.File>) {
     const existProfiles = await this.profilesRepository.findOne({
       where: {
         user: req.user,
@@ -78,14 +76,16 @@ export class UsersService {
     });
 
     if (existProfiles) {
-      const fileUnlink = promisify(unlink);
-      await fileUnlink(`./uploads/${existProfiles.filename}`);
+      // upload folder에 올라가는 경우
+      // unlink node로 file 삭제할 때
+      // const fileUnlink = promisify(unlink);
+      // await fileUnlink(`./uploads/${existProfiles.filename}`);
 
       await this.profilesRepository.delete({ id: existProfiles.id });
     }
 
     const profile = await this.profilesRepository.create({
-      filename: files[0].filename,
+      filename: files[0].key,
       originalFilename: files[0].originalname,
       user: req.user,
     });
