@@ -7,3 +7,9 @@ export interface ITweet {
     nickname: string;
   };
 }
+
+export interface IProfile {
+  id: number;
+  nickname: string;
+  introduce: string;
+}
