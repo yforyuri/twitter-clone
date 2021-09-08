@@ -37,17 +37,23 @@ const App: FC = () => {
   // if (!me) return <div>login page</div>;
 
   return (
-    <MeProvider>
-      <Router>
-        <Layout>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/profile/:userId" component={Profile} />
-          </Switch>
-        </Layout>
-      </Router>
-      <ToastContainer />
-    </MeProvider>
+    <div
+      className={`${
+        process.env.NODE_ENV !== 'production' ? 'debug-screens' : ''
+      }`}
+    >
+      <MeProvider>
+        <Router>
+          <Layout>
+            <Switch>
+              <Route exact path="/" component={Main} />
+              <Route exact path="/profile/:userId" component={Profile} />
+            </Switch>
+          </Layout>
+        </Router>
+        <ToastContainer />
+      </MeProvider>
+    </div>
   );
 };
 

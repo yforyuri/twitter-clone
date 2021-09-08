@@ -3,6 +3,12 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      screens: {
+        xs: {
+          min: '0px',
+          max: '639.98px',
+        },
+      },
       fontFamily: {
         noto: 'Noto Sans KR',
       },
