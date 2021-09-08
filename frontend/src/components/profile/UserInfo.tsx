@@ -6,9 +6,8 @@ import ProfileIcon from '../common/ProfileIcon';
 import { toastError, toastSuccess } from '../../utils/toastify';
 import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 import imageCompression from 'browser-image-compression';
-import useSWR from 'swr';
-import { IProfile } from '../../interfaces';
 import CreateProfile from './CreateProfile';
+import { useGetProfile } from '../../hooks/useGetProfile';
 
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
@@ -61,30 +60,7 @@ const UserInfo: FC = () => {
     setToggleIntroduce(true);
   };
 
-  const fetcher = async (url: string) => {
-    try {
-      const token = localStorage.getItem('token');
-
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error: any) {
-      console.error(error);
-      toastError(error.response.data.message);
-    }
-  };
-
-  const {
-    data,
-    error,
-    mutate: profileMutate,
-  } = useSWR<IProfile>(
-    `${process.env.REACT_APP_BACK_URL}/users/profile/${userId}`,
-    fetcher,
-  );
+  const { data, error, mutate: profileMutate } = useGetProfile(me);
 
   if (!data) return <div>Loading...</div>;
   if (error) return <div>Error</div>;

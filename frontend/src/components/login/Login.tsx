@@ -72,10 +72,10 @@ const Login: FC = () => {
 
   return (
     <div className="min-h-screen flex">
-      <div className="flex justify-center items-center bg-purple-300 flex-auto">
+      <div className="hidden md:flex justify-center items-center bg-purple-300 flex-auto">
         <FontAwesomeIcon className="text-20-rem text-white" icon={faTwitter} />
       </div>
-      <div className="max-w-screen-sm m-8 flex-auto">
+      <div className="max-w-screen-sm md:m-8 flex-auto">
         <div>
           <FontAwesomeIcon
             className="text-purple-500 text-4xl mb-8"
