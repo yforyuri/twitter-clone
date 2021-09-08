@@ -36,4 +36,5 @@ export class Common {
   })
   @DeleteDateColumn()
   deletedAt: Date;
+  user: any;
 }
