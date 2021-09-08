@@ -28,5 +28,5 @@ export class Comments extends Common {
     onUpdate: 'CASCADE',
   })
   @JoinColumn()
-  tweets: Tweets;
+  tweet: Tweets;
 }
