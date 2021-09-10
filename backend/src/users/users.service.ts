@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUSerDto } from './dtos/createUser.dto';
-import { Users } from './entities/user.entity';
+import { Users } from './entities/users.entity';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -12,6 +12,7 @@ import {
   ModifyIntroduceInputDto,
   ModifyIntroduceOutputDto,
 } from './dtos/modifyIntroduce.dto';
+import { Follows } from './entities/follows.entity';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,8 @@ export class UsersService {
     private readonly usersRepository: Repository<Users>,
     @InjectRepository(Profiles)
     private readonly profilesRepository: Repository<Profiles>,
+    @InjectRepository(Follows)
+    private readonly followsRepository: Repository<Follows>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -133,5 +136,43 @@ export class UsersService {
       throw new HttpException('Not exist user', HttpStatus.BAD_REQUEST);
 
     return user;
+  }
+
+  async follow(req: Request, param: { userId: string }) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        id: param.userId,
+      },
+    });
+
+    if (!user)
+      throw new HttpException(
+        '존재하지 않는 유저입니다.',
+        HttpStatus.BAD_REQUEST,
+      );
+    if (req.user === user.id)
+      throw new HttpException(
+        '자기 자신을 팔로우 할 수 없습니다.',
+        HttpStatus.UNAUTHORIZED,
+      );
+
+    const existFollow = await this.followsRepository.findOne({
+      where: {
+        follower: user,
+        following: req.user,
+      },
+    });
+
+    if (existFollow) {
+      await this.followsRepository.delete({ id: existFollow.id });
+      return existFollow;
+    }
+
+    const follow = await this.followsRepository.create({
+      follower: user,
+      following: req.user,
+    });
+
+    return await this.followsRepository.save(follow);
   }
 }

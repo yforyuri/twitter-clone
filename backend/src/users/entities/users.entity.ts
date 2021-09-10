@@ -5,6 +5,7 @@ import { Common } from 'src/common/common.entity';
 import { Likes } from 'src/likes/entities/likes.entity';
 import { Tweets } from 'src/tweets/entities/tweets.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { Follows } from './follows.entity';
 import { Profiles } from './profiles.entity';
 
 @Entity()
@@ -37,4 +38,10 @@ export class Users extends Common {
 
   @OneToMany(() => Comments, (comments) => comments.user)
   comments: Comments[];
+
+  @OneToMany(() => Follows, (follow) => follow.follower)
+  followers: Follows[];
+
+  @OneToMany(() => Follows, (follow) => follow.following)
+  followings: Follows[];
 }

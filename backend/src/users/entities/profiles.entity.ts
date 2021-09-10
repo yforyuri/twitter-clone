@@ -1,6 +1,6 @@
 import { Common } from 'src/common/common.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { Users } from './user.entity';
+import { Users } from './users.entity';
 
 @Entity()
 export class Profiles extends Common {

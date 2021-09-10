@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Common } from 'src/common/common.entity';
 import { Tweets } from 'src/tweets/entities/tweets.entity';
-import { Users } from 'src/users/entities/user.entity';
+import { Users } from 'src/users/entities/users.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()

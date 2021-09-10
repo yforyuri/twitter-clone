@@ -1,7 +1,8 @@
 import { Comments } from 'src/comments/entities/comments.entity';
 import { Common } from 'src/common/common.entity';
 import { Likes } from 'src/likes/entities/likes.entity';
-import { Users } from 'src/users/entities/user.entity';
+import { Users } from 'src/users/entities/users.entity';
+
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()

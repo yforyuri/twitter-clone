@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Users } from './entities/user.entity';
+import { Users } from './entities/users.entity';
 import { Profiles } from './entities/profiles.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
@@ -12,6 +12,7 @@ import { extname } from 'path';
 import * as multerS3 from 'multer-s3';
 import * as AWS from 'aws-sdk';
 import { config } from 'dotenv';
+import { Follows } from './entities/follows.entity';
 
 config();
 
@@ -24,7 +25,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Users, Profiles]),
+    TypeOrmModule.forFeature([Users, Profiles, Follows]),
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
