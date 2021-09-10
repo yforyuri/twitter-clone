@@ -13,7 +13,7 @@ const CommentList: FC<CommentListProps> = ({ tweet }) => {
   return (
     <ul>
       {data?.map((comment) => {
-        return <Comment key={comment.id} comment={comment} />;
+        return <Comment key={comment.id} comment={comment} tweet={tweet} />;
       })}
     </ul>
   );
