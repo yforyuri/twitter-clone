@@ -8,6 +8,7 @@ import { DeleteTweetOutputDto } from './dtos/deleteTweet.dto';
 
 @Injectable()
 export class TweetsService {
+  commentsRepository: any;
   constructor(
     @InjectRepository(Tweets)
     private readonly tweetsRepository: Repository<Tweets>,
@@ -16,8 +17,6 @@ export class TweetsService {
   ) {}
 
   async createTweet(req: Request, createTweetDto) {
-    console.log(req.user);
-
     return await this.tweetsRepository.save({
       ...createTweetDto,
       users: req.user,
@@ -66,10 +65,26 @@ export class TweetsService {
       },
     });
 
+    const comments = await this.commentsRepository.find({
+      where: {
+        tweet: {
+          id: tweet.id,
+        },
+      },
+    });
+
     if (Like.length !== 0) {
       await Promise.all(
         likes.map((like) => {
           this.likesRepository.softDelete({ id: like.id });
+        }),
+      );
+    }
+
+    if (comments.length !== 0) {
+      await Promise.all(
+        comments.map(async (comment) => {
+          await this.commentsRepository.softDelete({ id: comment.id });
         }),
       );
     }

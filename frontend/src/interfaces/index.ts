@@ -13,3 +13,13 @@ export interface IProfile {
   nickname: string;
   introduce: string;
 }
+
+export interface IComment {
+  id: number;
+  createdAt: Date;
+  comment: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
+}

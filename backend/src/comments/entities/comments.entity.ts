@@ -9,7 +9,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 export class Comments extends Common {
   @ApiProperty({
     example: 'Hello World',
-    description: '댓글',
+    description: 'Comment',
   })
   @IsString()
   @IsNotEmpty()

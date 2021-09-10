@@ -1,15 +1,16 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
-import React, { FC, MutableRefObject } from 'react';
+import React, { FC, MutableRefObject, useState } from 'react';
 import { ITweet } from '../../../interfaces';
 import ProfileIcon from '../ProfileIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment as farComment } from '@fortawesome/free-regular-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
 import Ellipsis from './Ellipsis';
 import { CreateTweetProps } from '../../main/CreateTweet';
+import CommentButton from './CommentButton';
+import CommentList from './ommentList';
 
 export interface CardProps extends CreateTweetProps {
   tweet: ITweet;
@@ -18,6 +19,8 @@ export interface CardProps extends CreateTweetProps {
 
 const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
   dayjs.extend(relativeTime);
+
+  const [commentToggle, setCommentToggle] = useState<boolean>(false);
   return (
     <li className="flex border-b-1">
       <div className="mt-4 mx-4">
@@ -30,10 +33,11 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
         </span>
         <div>{tweet.tweet}</div>
         <div className="flex justify-between my-4">
-          <div className="w-full">
-            <FontAwesomeIcon icon={farComment} />
-            <span className="ml-2">123</span>
-          </div>
+          <CommentButton
+            tweet={tweet}
+            commentToggle={commentToggle}
+            setCommentToggle={setCommentToggle}
+          />
           <div className="w-full">
             <FontAwesomeIcon icon={faRetweet} />
             <span className="ml-2">123</span>
@@ -41,6 +45,14 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
           <Like tweet={tweet} />
           <Ellipsis tweet={tweet} mutate={mutate} ellipsisEl={ellipsisEl} />
         </div>
+        {commentToggle && (
+          <div>
+            <div>댓글 작성 폼</div>
+            <ul>
+              <CommentList tweet={tweet} />
+            </ul>
+          </div>
+        )}
       </div>
     </li>
   );
