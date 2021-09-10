@@ -10,7 +10,8 @@ import Like from './Like';
 import Ellipsis from './Ellipsis';
 import { CreateTweetProps } from '../../main/CreateTweet';
 import CommentButton from './CommentButton';
-import CommentList from './ommentList';
+import CommentList from './CommentList';
+import CommentForm from './CommentForm';
 
 export interface CardProps extends CreateTweetProps {
   tweet: ITweet;
@@ -47,7 +48,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
         </div>
         {commentToggle && (
           <div>
-            <div>댓글 작성 폼</div>
+            <CommentForm tweet={tweet} />
             <ul>
               <CommentList tweet={tweet} />
             </ul>

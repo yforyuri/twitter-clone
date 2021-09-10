@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment as farComment } from '@fortawesome/free-regular-svg-icons';
 import { Dispatch, FC, SetStateAction } from 'react';
-import { toastError } from '../../../utils/toastify';
-import axios from 'axios';
-import useSWR from 'swr';
 import { ITweet } from '../../../interfaces';
+import { useCommentCount } from '../../../hooks/useCommentCount';
 
 interface CommentButtonProps {
   tweet: ITweet;
@@ -17,25 +15,12 @@ const CommentButton: FC<CommentButtonProps> = ({
   commentToggle,
   setCommentToggle,
 }) => {
+  const { data } = useCommentCount(tweet);
+
   const onClickCommentToggle = () => {
     setCommentToggle(!commentToggle);
   };
 
-  const fetcher = async (url: string) => {
-    try {
-      const response = await axios.get(url);
-
-      return response.data;
-    } catch (error: any) {
-      console.error(error);
-      toastError(error.response.data.message);
-    }
-  };
-
-  const { data } = useSWR(
-    `${process.env.REACT_APP_BACK_URL}/comments/count/tweets/${tweet.id}`,
-    fetcher,
-  );
   return (
     <button className="w-full" onClick={onClickCommentToggle}>
       <FontAwesomeIcon icon={farComment} />
