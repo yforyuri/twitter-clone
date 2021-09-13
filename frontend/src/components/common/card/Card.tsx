@@ -47,7 +47,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
           <Ellipsis tweet={tweet} mutate={mutate} ellipsisEl={ellipsisEl} />
         </div>
         {commentToggle && (
-          <div>
+          <div className="ml-3">
             <CommentForm tweet={tweet} />
             <ul>
               <CommentList tweet={tweet} />

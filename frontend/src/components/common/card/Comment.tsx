@@ -44,7 +44,7 @@ const Comment: FC<CommentProps> = ({ comment, tweet }) => {
     }
   };
   return (
-    <li className="flex justify-between my-1 text-xs w-48">
+    <li className="flex justify-between my-1 text-xs w-80">
       <div>
         <span className="font-bold mr-2 text-sm">{comment.user.nickname}</span>
         {comment.comment}
