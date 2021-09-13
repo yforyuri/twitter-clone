@@ -13,6 +13,7 @@ import * as multerS3 from 'multer-s3';
 import * as AWS from 'aws-sdk';
 import { config } from 'dotenv';
 import { Follows } from './entities/follows.entity';
+import { AuthModule } from 'src/auth/auth.module';
 
 config();
 
@@ -25,6 +26,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 @Module({
   imports: [
+    AuthModule,
     TypeOrmModule.forFeature([Users, Profiles, Follows]),
     JwtModule.registerAsync({
       inject: [ConfigService],

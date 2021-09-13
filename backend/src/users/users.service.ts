@@ -13,6 +13,7 @@ import {
   ModifyIntroduceOutputDto,
 } from './dtos/modifyIntroduce.dto';
 import { Follows } from './entities/follows.entity';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
@@ -24,16 +25,25 @@ export class UsersService {
     @InjectRepository(Follows)
     private readonly followsRepository: Repository<Follows>,
     private readonly jwtService: JwtService,
+    private readonly authService: AuthService,
   ) {}
 
   async createUser(createUserDto: CreateUSerDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
+    const verifyCode: number =
+      Math.floor(Math.random() * (999999 - 111111 + 1)) + 111111;
+
     const user = await this.usersRepository.save({
       email: createUserDto.email,
       nickname: createUserDto.nickname,
       password: hashedPassword,
+      verifyCode: verifyCode.toString(),
     });
+
+    await this.authService.sendVerifyEmail(user);
+
+    return { email: user.email, nickname: user.nickname };
 
     const token = this.jwtService.sign({ id: user.id });
 
