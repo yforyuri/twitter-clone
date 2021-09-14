@@ -21,7 +21,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
 
   return (
     <>
-      <h1 className="font-bold text-xl p-4 border-b-1 flex justify-between">
+      <div className="font-bold text-xl p-4 border-b-1 flex justify-between">
         <h1 className="hidden md:block">{title}</h1>
         <button className="md:hidden" onClick={onClickHamburgerToggle}>
           <FontAwesomeIcon icon={faBars} />
@@ -34,7 +34,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
             Log out
           </button>
         </div>
-      </h1>
+      </div>
       {hamburgerToggle && (
         <HamburgerMenu title={title} setHamburgerToggle={setHamburgerToggle} />
       )}
