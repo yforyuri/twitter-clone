@@ -23,3 +23,21 @@ export interface IComment {
     nickname: string;
   };
 }
+
+export interface IFollower {
+  id: number;
+  follower: {
+    id: number;
+    nickname: string;
+    introduce: string;
+  };
+}
+
+export interface IFollowing {
+  id: number;
+  following: {
+    id: number;
+    nickname: string;
+    introduce: string;
+  };
+}
