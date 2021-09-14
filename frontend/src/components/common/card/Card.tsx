@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
-import React, { FC, MutableRefObject, useState } from 'react';
+import React, { FC, MutableRefObject, useEffect, useState } from 'react';
 import { ITweet } from '../../../interfaces';
 import ProfileIcon from '../ProfileIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,12 +16,28 @@ import CommentForm from './CommentForm';
 export interface CardProps extends CreateTweetProps {
   tweet: ITweet;
   ellipsisEl: MutableRefObject<HTMLDivElement | null>;
+  commentEl: MutableRefObject<HTMLDivElement | null>;
 }
 
-const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
+const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl, commentEl }) => {
   dayjs.extend(relativeTime);
 
   const [commentToggle, setCommentToggle] = useState<boolean>(false);
+
+  const commentToggleHandler = (e: any) => {
+    if (
+      commentToggle &&
+      (!commentEl.current || !commentEl.current.contains(e.target))
+    ) {
+      setCommentToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', commentToggleHandler);
+    return () => window.removeEventListener('click', commentToggleHandler);
+  });
+
   return (
     <li className="flex border-b-1">
       <div className="mt-4 mx-4">
@@ -47,7 +63,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
           <Ellipsis tweet={tweet} mutate={mutate} ellipsisEl={ellipsisEl} />
         </div>
         {commentToggle && (
-          <div className="ml-3">
+          <div ref={commentEl} className="ml-3">
             <CommentForm tweet={tweet} />
             <ul>
               <CommentList tweet={tweet} />

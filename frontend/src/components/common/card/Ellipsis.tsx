@@ -4,12 +4,30 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faClone } from '@fortawesome/free-regular-svg-icons';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, {
+  FC,
+  MutableRefObject,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { MeContext } from '../../../contexts';
 import axios from 'axios';
-import { CardProps } from './Card';
+import { MutatorCallback } from 'swr/dist/types';
+import { ITweet } from '../../../interfaces';
 
-type EllipsisProps = CardProps;
+interface EllipsisProps {
+  tweet: ITweet;
+  ellipsisEl: MutableRefObject<HTMLDivElement | null>;
+  mutate: (
+    data?:
+      | ITweet[][]
+      | Promise<ITweet[][]>
+      | MutatorCallback<ITweet[][]>
+      | undefined,
+    shouldRevalidate?: boolean | undefined,
+  ) => Promise<ITweet[][] | undefined>;
+}
 
 const Ellipsis: FC<EllipsisProps> = ({ tweet, mutate, ellipsisEl }) => {
   const { me } = useContext(MeContext);
