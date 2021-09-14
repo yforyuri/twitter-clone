@@ -27,7 +27,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
 
     if (!user.verify)
-      throw new HttpException('not exist user', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('not verified user', HttpStatus.UNAUTHORIZED);
     return payload.id;
   }
 }

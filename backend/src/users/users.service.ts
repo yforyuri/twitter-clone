@@ -14,6 +14,8 @@ import {
 } from './dtos/modifyIntroduce.dto';
 import { Follows } from './entities/follows.entity';
 import { AuthService } from 'src/auth/auth.service';
+import { GetFollowsOutputDto } from './dtos/getFollows.dto';
+import { FollowOutputDto } from './dtos/follow.dto';
 
 @Injectable()
 export class UsersService {
@@ -44,10 +46,6 @@ export class UsersService {
     await this.authService.sendVerifyEmail(user);
 
     return { email: user.email, nickname: user.nickname };
-
-    const token = this.jwtService.sign({ id: user.id });
-
-    return { token };
   }
 
   async login(loginDto: LoginDto) {
@@ -148,7 +146,10 @@ export class UsersService {
     return user;
   }
 
-  async follow(req: Request, param: { userId: string }) {
+  async follow(
+    req: Request,
+    param: { userId: string },
+  ): Promise<FollowOutputDto> {
     const user = await this.usersRepository.findOne({
       where: {
         id: param.userId,
@@ -156,13 +157,10 @@ export class UsersService {
     });
 
     if (!user)
-      throw new HttpException(
-        '존재하지 않는 유저입니다.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('not exist user', HttpStatus.BAD_REQUEST);
     if (req.user === user.id)
       throw new HttpException(
-        '자기 자신을 팔로우 할 수 없습니다.',
+        'you can not follow yourself',
         HttpStatus.UNAUTHORIZED,
       );
 
@@ -175,7 +173,7 @@ export class UsersService {
 
     if (existFollow) {
       await this.followsRepository.delete({ id: existFollow.id });
-      return existFollow;
+      return { isFollow: 'unFollow' };
     }
 
     const follow = await this.followsRepository.create({
@@ -183,6 +181,52 @@ export class UsersService {
       following: req.user,
     });
 
-    return await this.followsRepository.save(follow);
+    await this.followsRepository.save(follow);
+
+    return { isFollow: 'follow' };
+  }
+
+  async getFollows(req: Request): Promise<GetFollowsOutputDto[]> {
+    const follows = await this.followsRepository
+      .createQueryBuilder('follows')
+      .leftJoin('follows.follower', 'follower')
+      .leftJoin('follows.following', 'following')
+      .where('following.id = :followingId', { followingId: req.user })
+      .select(['follows.id', 'follower.id', 'following.id'])
+      .getMany();
+
+    return follows;
+  }
+
+  async getFollowers(param: { userId: string }) {
+    return await this.followsRepository
+      .createQueryBuilder('follows')
+      .leftJoin('follows.following', 'following')
+      .leftJoin('follows.follower', 'follower')
+      .where('following.id = :followingId', { followingId: param.userId })
+      .select([
+        'follows.id',
+        'follower.id',
+        'follower.nickname',
+        'follower.introduce',
+      ])
+      .orderBy('follows.createdAt', 'ASC')
+      .getMany();
+  }
+
+  async getFollowings(param: { userId: string }) {
+    return await this.followsRepository
+      .createQueryBuilder('follows')
+      .leftJoin('follows.following', 'following')
+      .leftJoin('follows.follower', 'follower')
+      .where('follower.id = :followerId', { followerId: param.userId })
+      .select([
+        'follows.id',
+        'following.id',
+        'following.nickname',
+        'following.introduce',
+      ])
+      .orderBy('follows.createdAt', 'ASC')
+      .getMany();
   }
 }

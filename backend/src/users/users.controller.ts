@@ -21,6 +21,8 @@ import {
   ModifyIntroduceOutputDto,
 } from './dtos/modifyIntroduce.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { GetFollowsOutputDto } from './dtos/getFollows.dto';
+import { FollowOutputDto } from './dtos/follow.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -77,11 +79,34 @@ export class UsersController {
     return await this.usersServise.getProfile(param);
   }
 
-  @ApiOperation({ summary: '팔로우 신청 취소' })
+  @ApiOperation({ summary: '팔로우 신청/취소' })
   @ApiOkResponse({})
   @UseGuards(JwtAuthGuard)
   @Post('follow/:userId')
-  async follow(@Req() req: Request, @Param() param: { userId: string }) {
+  async follow(
+    @Req() req: Request,
+    @Param() param: { userId: string },
+  ): Promise<FollowOutputDto> {
     return await this.usersServise.follow(req, param);
+  }
+
+  @ApiOperation({ summary: 'Get user all follow' })
+  @ApiOkResponse({
+    type: [GetFollowsOutputDto],
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('follow')
+  async getFollow(@Req() req: Request): Promise<GetFollowsOutputDto[]> {
+    return await this.usersServise.getFollows(req);
+  }
+
+  @Get('followers/:userId')
+  async getFollowers(@Param() param: { userId: string }) {
+    return await this.usersServise.getFollowers(param);
+  }
+
+  @Get('followings/:userId')
+  async getFollowings(@Param() param: { userId: string }) {
+    return await this.usersServise.getFollowings(param);
   }
 }
