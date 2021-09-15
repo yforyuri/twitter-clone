@@ -1,6 +1,6 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 
 interface ProfileIconProps {
@@ -9,8 +9,6 @@ interface ProfileIconProps {
 
 const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
   const { data } = useGetProfileImage(userId);
-
-  useEffect(() => console.log(data), [data]);
 
   return (
     <>

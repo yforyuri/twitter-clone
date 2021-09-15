@@ -59,7 +59,7 @@ const Profile: FC = () => {
 
   return (
     <>
-      <Header title="Profile" />
+      <Header title={'Profile'} />
       <UserInfo />
       {data.map((tweets, i) => {
         return <Cards key={i} tweets={tweets} mutate={mutate} />;
