@@ -11,7 +11,7 @@ const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
   const { data } = useGetProfileImage(userId);
 
   return (
-    <>
+    <div className="flex items-center justify-center">
       {data && data.profiles.length !== 0 ? (
         <div className="h-12 w-12 ">
           <img
@@ -24,7 +24,7 @@ const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
           <FontAwesomeIcon className="text-3xl text-gray-600" icon={faUser} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

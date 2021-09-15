@@ -22,10 +22,12 @@ const CommentButton: FC<CommentButtonProps> = ({
   };
 
   return (
-    <button className="w-full" onClick={onClickCommentToggle}>
-      <FontAwesomeIcon icon={farComment} />
-      <span className="ml-2">{data ? data : ''}</span>
-    </button>
+    <div className="w-full">
+      <button onClick={onClickCommentToggle}>
+        <FontAwesomeIcon icon={farComment} />
+        <span className="ml-2">{data ? data : ''}</span>
+      </button>
+    </div>
   );
 };
 

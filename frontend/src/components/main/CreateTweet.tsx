@@ -65,7 +65,7 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
 
   return (
     <div className="border-b-1 flex">
-      <div className="mt-2 mx-4">
+      <div className="my-4 mx-6">
         <ProfileIcon userId={me} />
       </div>
       <form className="w-full" onSubmit={onSubmitTweet}>
@@ -79,7 +79,7 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
           <FontAwesomeIcon icon={faTwitter} />
           <span className="ml-1 text-sm font-bold">Twitter Clone!</span>
         </div>
-        <div className="flex justify-end mr-4 my-4">
+        <div className="flex justify-end mr-4 my-2">
           <input
             className="rounded-full px-4 py-2 text-sm font-black text-white bg-purple-600"
             type="submit"

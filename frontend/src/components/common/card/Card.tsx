@@ -40,18 +40,18 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl, commentEl }) => {
   });
 
   return (
-    <Link to={`/profile/${tweet.users.id}`}>
+    <div>
       <li className="flex border-b-1">
-        <div className="mt-4 mx-4">
+        <Link className="mt-4 mx-4" to={`/profile/${tweet.users.id}`}>
           <ProfileIcon userId={tweet.users.id} />
-        </div>
-        <div className="mt-6 text-sm w-full ml-4">
+        </Link>
+        <div className="mt-4 text-sm w-full">
           <span className="font-bold">{tweet.users.nickname}</span>
           <span className="ml-2 text-gray-500">
             {dayjs(tweet.createdAt).locale('ko').fromNow()}
           </span>
           <div>{tweet.tweet}</div>
-          <div className="flex justify-between my-4">
+          <div className="flex justify-between my-3 mx-2">
             <CommentButton
               tweet={tweet}
               commentToggle={commentToggle}
@@ -72,7 +72,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl, commentEl }) => {
           )}
         </div>
       </li>
-    </Link>
+    </div>
   );
 };
 

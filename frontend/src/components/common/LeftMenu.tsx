@@ -5,9 +5,9 @@ import MenuList from './MenuList';
 
 const LeftMenu: FC = () => {
   return (
-    <div className="flex-auto flex justify-end mr-8">
+    <div className="flex-auto mt-2 md:mr-5 md:ml-20 ">
       <div>
-        <div>
+        <div className="md:px-6 md:py-3">
           <FontAwesomeIcon
             icon={faTwitter}
             className="text-3xl text-purple-400"

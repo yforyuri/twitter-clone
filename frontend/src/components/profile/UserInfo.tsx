@@ -76,60 +76,62 @@ const UserInfo: FC = () => {
   return (
     <>
       <div className="flex border-b-1">
-        <div>
+        <div className="mx-4 my-4">
           <ProfileIcon userId={data.id} />
-          <div>{data.nickname}</div>
-          {me === data.id && (
-            <div className="relative rounded-full px-2 py-1 font-black text-white text-xs bg-purple-500 mx-2 mt-1 text-center">
+          <div className="my-5 font-bold text-center">{data.nickname}</div>
+          {toggleIntroduce && (
+            <div className="relative rounded-full px-2 py-1 font-black border-purple-500 border-1 text-purple-500 text-xs mt-2 text-center">
               <input
                 className="w-full opacity-0 absolute"
                 type="file"
                 onChange={onChangeProfileUpload}
               />
-              <span>img upload</span>
+              <span>change</span>
             </div>
           )}
         </div>
-        <div className="flex justify-around w-full text-center">
-          <div>
-            <div>Following</div>
-            <div>{profileInfoData?.followings.length}</div>
+        <div className="w-full">
+          <div className="flex justify-around w-full text-center mt-4 mb-2">
+            <div>
+              <div>Following</div>
+              <div>{profileInfoData?.followings.length}</div>
+            </div>
+            <Link
+              className="hover:text-purple-500"
+              to={`/profile/${userId}/followers`}
+            >
+              <div>Follower</div>
+              <div>{profileInfoData?.followers.length}</div>
+            </Link>
+            <Link className="hover:text-purple-500" to={`/profile/${userId}`}>
+              <div>Tweet</div>
+              <div>{profileInfoData?.tweets.length}</div>
+            </Link>
           </div>
-          <Link
-            className="hover:text-purple-500"
-            to={`/profile/${userId}/followers`}
-          >
-            <div>Follower</div>
-            <div>{profileInfoData?.followers.length}</div>
-          </Link>
-          <Link className="hover:text-purple-500" to={`/profile/${userId}`}>
-            <div>Tweet</div>
-            <div>{profileInfoData?.tweets.length}</div>
-          </Link>
+          <div className="ml-7 mt-5">
+            {toggleIntroduce ? (
+              <CreateProfile
+                profileMutate={profileMutate}
+                setToggleIntroduce={setToggleIntroduce}
+              />
+            ) : data.introduce ? (
+              <div>{data.introduce}</div>
+            ) : (
+              <div>no introduce message </div>
+            )}
+          </div>
+          <div className="mx-5 mt-1 mb-5 justify-end items-end flex">
+            {me === data.id && (
+              <button
+                onClick={onClickToggleIntroduce}
+                className="rounded-full px-2 py-1 font-black border-purple-500 border-1 text-purple-500 text-xs mx-2 text-center"
+              >
+                edit profile
+              </button>
+            )}
+          </div>
         </div>
       </div>
-      {toggleIntroduce ? (
-        <CreateProfile
-          profileMutate={profileMutate}
-          setToggleIntroduce={setToggleIntroduce}
-        />
-      ) : data.introduce ? (
-        <div>
-          {data.introduce}
-          {me === data.id && (
-            <button
-              onClick={onClickToggleIntroduce}
-              className="rounded-full px-2 py-1 font-black text-white text-xs bg-purple-500 mx-2 mt-1 text-center"
-            >
-              edit profile
-            </button>
-          )}
-        </div>
-      ) : me === data.id ? (
-        <CreateProfile profileMutate={profileMutate} />
-      ) : (
-        <div>no introduce message </div>
-      )}
     </>
   );
 };

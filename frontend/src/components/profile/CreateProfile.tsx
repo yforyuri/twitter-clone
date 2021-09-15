@@ -46,14 +46,20 @@ const CreateProfile: FC<CreateProfileProps> = ({
   };
 
   return (
-    <form onSubmit={onSubmitIntroduce}>
+    <form onSubmit={onSubmitIntroduce} className="w-full">
       <input
+        className="w-80"
         type="text"
         value={introduce}
         onChange={onChangeIntroduce}
         placeholder="Add introduction to your profile"
+        maxLength={40}
       />
-      <input type="submit" value="Submit" />
+      <input
+        type="submit"
+        value="update"
+        className="rounded-full px-2 py-1 font-black border-purple-500 border-1 text-purple-500  bg-white text-xs mx-1 mt-1 text-center"
+      />
     </form>
   );
 };

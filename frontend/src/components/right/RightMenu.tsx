@@ -13,7 +13,7 @@ const RightMenu: FC = () => {
   const { data: followingsData } = useFollowings(me);
 
   return (
-    <div className="flex-auto">
+    <div className="flex-auto mt-2 md:ml-5">
       <div>
         <form className="relative">
           <FontAwesomeIcon className="absolute top-4 left-4" icon={faSearch} />

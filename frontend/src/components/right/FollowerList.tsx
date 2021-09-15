@@ -19,6 +19,7 @@ const FollowerList: FC<FollowerListProps> = ({ followersData }) => {
               key={v.id}
               nickname={v.following.nickname}
               introduce={v.following.introduce}
+              id={v.following.id}
             />
           );
         })
