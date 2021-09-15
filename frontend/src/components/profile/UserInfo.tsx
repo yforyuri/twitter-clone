@@ -8,13 +8,16 @@ import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 import imageCompression from 'browser-image-compression';
 import CreateProfile from './CreateProfile';
 import { useGetProfile } from '../../hooks/useGetProfile';
+import useSWR from 'swr';
+import { IProfileInfo } from '../../interfaces';
+import { fetcher } from '../../utils/fetcher';
 
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
 
   const { me } = useContext(MeContext);
 
-  const { userId }: { userId: string } = useParams();
+  const { userId } = useParams<{ userId: string }>();
 
   const { mutate } = useGetProfileImage(+userId);
 
@@ -62,6 +65,11 @@ const UserInfo: FC = () => {
 
   const { data, error, mutate: profileMutate } = useGetProfile(me);
 
+  const { data: profileInfoData } = useSWR<IProfileInfo>(
+    `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
+    fetcher,
+  );
+
   if (!data) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
@@ -85,15 +93,15 @@ const UserInfo: FC = () => {
         <div className="flex justify-around w-full text-center">
           <div>
             <div>Follower</div>
-            <div>123</div>
+            <div>{profileInfoData?.followers.length}</div>
           </div>
           <div>
             <div>Following</div>
-            <div>123</div>
+            <div>{profileInfoData?.followings.length}</div>
           </div>
           <div>
             <div>Tweet</div>
-            <div>123</div>
+            <div>{profileInfoData?.tweets.length}</div>
           </div>
         </div>
       </div>

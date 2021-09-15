@@ -23,6 +23,8 @@ import {
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetFollowsOutputDto } from './dtos/getFollows.dto';
 import { FollowOutputDto } from './dtos/follow.dto';
+import { async } from 'rxjs';
+import { GetProfileInfoOutputDto } from './dtos/getProfileInfo.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -108,5 +110,12 @@ export class UsersController {
   @Get('followings/:userId')
   async getFollowings(@Param() param: { userId: string }) {
     return await this.usersServise.getFollowings(param);
+  }
+
+  @Get('profile/info/:userId')
+  async getProfileInfo(
+    @Param() param: { userId: string },
+  ): Promise<GetProfileInfoOutputDto> {
+    return await this.usersServise.getProfileInfo(param);
   }
 }

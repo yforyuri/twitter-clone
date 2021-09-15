@@ -16,6 +16,7 @@ import { Follows } from './entities/follows.entity';
 import { AuthService } from 'src/auth/auth.service';
 import { GetFollowsOutputDto } from './dtos/getFollows.dto';
 import { FollowOutputDto } from './dtos/follow.dto';
+import { GetProfileInfoOutputDto } from './dtos/getProfileInfo.dto';
 
 @Injectable()
 export class UsersService {
@@ -228,5 +229,25 @@ export class UsersService {
       ])
       .orderBy('follows.createdAt', 'ASC')
       .getMany();
+  }
+
+  async getProfileInfo(param: {
+    userId: string;
+  }): Promise<GetProfileInfoOutputDto> {
+    return await this.usersRepository
+      .createQueryBuilder('users')
+      .leftJoin('users.followers', 'followers')
+      .leftJoin('users.followings', 'followings')
+      .leftJoin('users.tweets', 'tweets')
+      .where('users.id = :userId', { userId: param.userId })
+      .select([
+        'users.id',
+        'users.nickname',
+        'users.introduce',
+        'followers.id',
+        'followings.id',
+        'tweets.id',
+      ])
+      .getOne();
   }
 }

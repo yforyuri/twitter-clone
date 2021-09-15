@@ -5,16 +5,19 @@ import Header from '../components/common/Header';
 import { ITweet } from '../interfaces';
 import Cards from '../components/common/card/Cards';
 import UserInfo from '../components/profile/UserInfo';
+import { useParams } from 'react-router';
 
-const getKey = (pageIndex: number, previusPageData: any) => {
-  if (previusPageData && !previusPageData.length) return null;
-  return `${process.env.REACT_APP_BACK_URL}/tweets?page=${pageIndex}`;
-};
+const getKey =
+  (userId: string) => (pageIndex: number, previusPageData: any) => {
+    if (previusPageData && !previusPageData.length) return null;
+    return `${process.env.REACT_APP_BACK_URL}/tweets/${userId}?page=${pageIndex}`;
+  };
 
 const Profile: FC = () => {
   const lastEl = createRef<HTMLDivElement>();
   const intersectionObserver = useRef<IntersectionObserver>();
   const sizeRef = useRef<number>(1);
+  const { userId } = useParams<{ userId: string }>();
 
   const fetcher = async (url: string) => {
     try {
@@ -26,7 +29,7 @@ const Profile: FC = () => {
     }
   };
   const { data, error, mutate, size, setSize } = useSWRInfinite<ITweet[]>(
-    getKey,
+    getKey(userId),
     fetcher,
   );
 

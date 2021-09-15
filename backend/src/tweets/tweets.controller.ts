@@ -20,9 +20,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { LikeTweetOutputDto } from 'src/likes/dtos/likeTweet.dto';
-import { UpdateResult } from 'typeorm';
 import { DeleteTweetOutputDto } from './dtos/deleteTweet.dto';
+import { Tweets } from './entities/tweets.entity';
 
 @ApiTags('tweets')
 @Controller('tweets')
@@ -41,6 +40,14 @@ export class TweetsController {
   @Get()
   async getTweets(@Query() query: { page: string }) {
     return await this.tweetService.getTweets(query);
+  }
+
+  @Get(':userId')
+  async getProfileTweets(
+    @Query() query,
+    @Param() param: { userId: string },
+  ): Promise<Tweets[]> {
+    return await this.tweetService.getProfileTweets(query, param);
   }
 
   @ApiOperation({ summary: 'delete function' })

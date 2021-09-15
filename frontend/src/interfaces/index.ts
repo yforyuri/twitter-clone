@@ -41,3 +41,18 @@ export interface IFollowing {
     introduce: string;
   };
 }
+
+export interface IProfileInfo {
+  id: number;
+  nickname: string;
+  introduce: string;
+  followers: {
+    id: number;
+  }[];
+  followings: {
+    id: number;
+  }[];
+  tweets: {
+    id: number;
+  }[];
+}
