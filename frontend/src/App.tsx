@@ -6,6 +6,7 @@ import Main from './pages/main';
 import Profile from './pages/profile';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Follower from './pages/follower';
 
 const App: FC = () => {
   // const token = localStorage.getItem('token');
@@ -48,6 +49,11 @@ const App: FC = () => {
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/profile/:userId" component={Profile} />
+              <Route
+                exact
+                path="/profile/:userId/followers"
+                component={Follower}
+              />
             </Switch>
           </Layout>
         </Router>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { FC, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { MeContext } from '../../contexts';
 import ProfileIcon from '../common/ProfileIcon';
 import { toastError, toastSuccess } from '../../utils/toastify';
@@ -20,6 +20,8 @@ const UserInfo: FC = () => {
   const { userId } = useParams<{ userId: string }>();
 
   const { mutate } = useGetProfileImage(+userId);
+
+  const { data, error, mutate: profileMutate } = useGetProfile(+userId);
 
   const onChangeProfileUpload = async (e: any) => {
     try {
@@ -63,8 +65,6 @@ const UserInfo: FC = () => {
     setToggleIntroduce(true);
   };
 
-  const { data, error, mutate: profileMutate } = useGetProfile(me);
-
   const { data: profileInfoData } = useSWR<IProfileInfo>(
     `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
     fetcher,
@@ -92,17 +92,20 @@ const UserInfo: FC = () => {
         </div>
         <div className="flex justify-around w-full text-center">
           <div>
-            <div>Follower</div>
-            <div>{profileInfoData?.followers.length}</div>
-          </div>
-          <div>
             <div>Following</div>
             <div>{profileInfoData?.followings.length}</div>
           </div>
-          <div>
+          <Link
+            className="hover:text-purple-500"
+            to={`/profile/${userId}/followers`}
+          >
+            <div>Follower</div>
+            <div>{profileInfoData?.followers.length}</div>
+          </Link>
+          <Link className="hover:text-purple-500" to={`/profile/${userId}`}>
             <div>Tweet</div>
             <div>{profileInfoData?.tweets.length}</div>
-          </div>
+          </Link>
         </div>
       </div>
       {toggleIntroduce ? (
