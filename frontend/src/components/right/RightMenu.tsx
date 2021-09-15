@@ -1,15 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import React, { FC, useContext } from 'react';
-import { useFollower } from '../../hooks/useFollow';
+import { useFollower, useFollowings } from '../../hooks/useFollow';
 import { MeContext } from '../../contexts';
 import FollowerList from './FollowerList';
+import FollowingList from './FollowingList';
 
 const RightMenu: FC = () => {
   const { me } = useContext(MeContext);
 
   const { data: followersData } = useFollower(me);
-  // const { data: followingsData } = useFollowings(me);
+  const { data: followingsData } = useFollowings(me);
 
   return (
     <div className="flex-auto">
@@ -19,10 +20,12 @@ const RightMenu: FC = () => {
           <input className="border-1 border-white rounded-full px-12 py-3 focus:outline-none focus:border-purple-500 bg-gray-100 focus:bg-white" />
         </form>
       </div>
-      <div>
+      <div className="mt-4">
         <FollowerList followersData={followersData} />
       </div>
-      <div>{/* <FollowingList followingsData={followingsData} /> */}</div>
+      <div className="mt-4">
+        <FollowingList followingsData={followingsData} />
+      </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const useFollower = (userId: number) => {
 
 export const useFollowings = (userId: number) => {
   const { data, error, mutate } = useSWR(
-    `${process.env.REACT_APP_BACK_URL}/users/followwings/${userId}`,
+    `${process.env.REACT_APP_BACK_URL}/users/followings/${userId}`,
     fetcher,
   );
 

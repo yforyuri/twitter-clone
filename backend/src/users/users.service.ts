@@ -203,12 +203,12 @@ export class UsersService {
       .createQueryBuilder('follows')
       .leftJoin('follows.following', 'following')
       .leftJoin('follows.follower', 'follower')
-      .where('following.id = :followingId', { followingId: param.userId })
+      .where('follower.id = :followerId', { followerId: param.userId })
       .select([
         'follows.id',
-        'follower.id',
-        'follower.nickname',
-        'follower.introduce',
+        'following.id',
+        'following.nickname',
+        'following.introduce',
       ])
       .orderBy('follows.createdAt', 'ASC')
       .getMany();
@@ -219,12 +219,12 @@ export class UsersService {
       .createQueryBuilder('follows')
       .leftJoin('follows.following', 'following')
       .leftJoin('follows.follower', 'follower')
-      .where('follower.id = :followerId', { followerId: param.userId })
+      .where('following.id = :followingId', { followingId: param.userId })
       .select([
         'follows.id',
-        'following.id',
-        'following.nickname',
-        'following.introduce',
+        'follower.id',
+        'follower.nickname',
+        'follower.introduce',
       ])
       .orderBy('follows.createdAt', 'ASC')
       .getMany();
