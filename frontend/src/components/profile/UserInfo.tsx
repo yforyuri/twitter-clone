@@ -10,7 +10,8 @@ import CreateProfile from './CreateProfile';
 import { useGetProfile } from '../../hooks/useGetProfile';
 import useSWR from 'swr';
 import { IProfileInfo } from '../../interfaces';
-import { fetcher } from '../../utils/fetcher';
+import { fetcher, tokenFetcher } from '../../utils/fetcher';
+import { useFollowings } from '../../hooks/useFollow';
 
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
@@ -20,6 +21,8 @@ const UserInfo: FC = () => {
   const { userId } = useParams<{ userId: string }>();
 
   const { mutate } = useGetProfileImage(+userId);
+
+  const { mutate: follwingMutate } = useFollowings(me);
 
   const { data, error, mutate: profileMutate } = useGetProfile(+userId);
 
@@ -65,9 +68,41 @@ const UserInfo: FC = () => {
     setToggleIntroduce(true);
   };
 
-  const { data: profileInfoData } = useSWR<IProfileInfo>(
-    `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
-    fetcher,
+  const onClickFollow = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACK_URL}/users/follow/${userId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.statusText === 'Created') {
+        isFollowMutate();
+        profileInfoMutate();
+        follwingMutate();
+        toastSuccess(
+          `${isFollowData && isFollowData ? 'unfollwed' : 'followed'}`,
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const { data: profileInfoData, mutate: profileInfoMutate } =
+    useSWR<IProfileInfo>(
+      `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
+      fetcher,
+    );
+
+  const { data: isFollowData, mutate: isFollowMutate } = useSWR<boolean>(
+    `${process.env.REACT_APP_BACK_URL}/users/is-follow/${userId}`,
+    tokenFetcher,
   );
 
   if (!data) return <div>Loading...</div>;
@@ -121,12 +156,24 @@ const UserInfo: FC = () => {
             )}
           </div>
           <div className="mx-5 mt-1 mb-5 justify-end items-end flex">
-            {me === data.id && (
+            {me === data.id ? (
               <button
                 onClick={onClickToggleIntroduce}
                 className="rounded-full px-2 py-1 font-black border-purple-500 border-1 text-purple-500 text-xs mx-2 text-center"
               >
                 edit profile
+              </button>
+            ) : (
+              <button
+                className={`rounded-full px-2 py-1 font-black border-purple-500 border-1 text-base mx-2 text-center hover:bg-purple-500 hover:text-white ${
+                  isFollowData && isFollowData
+                    ? 'bg-purple-500 text-white'
+                    : 'bg-white text-purple-500 '
+                }
+                  `}
+                onClick={onClickFollow}
+              >
+                {isFollowData && isFollowData ? 'Following' : 'Follow'}
               </button>
             )}
           </div>

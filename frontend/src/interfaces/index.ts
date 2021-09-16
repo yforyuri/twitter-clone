@@ -56,3 +56,13 @@ export interface IProfileInfo {
     id: number;
   }[];
 }
+
+export interface IFollowList {
+  id: number;
+  follower: {
+    id: number;
+  };
+  following: {
+    id: number;
+  };
+}
