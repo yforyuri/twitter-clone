@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
 
-export const useFollower = (userId: number) => {
+export const useFollowers = (userId: number) => {
   const { data, error, mutate } = useSWR(
     `${process.env.REACT_APP_BACK_URL}/users/followers/${userId}`,
     fetcher,

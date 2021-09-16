@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import React, { FC, useContext } from 'react';
-import { useFollower, useFollowings } from '../../hooks/useFollow';
+import { useFollowers, useFollowings } from '../../hooks/useFollow';
 import { MeContext } from '../../contexts';
 import FollowerList from './FollowerList';
 import FollowingList from './FollowingList';
@@ -9,7 +9,7 @@ import FollowingList from './FollowingList';
 const RightMenu: FC = () => {
   const { me } = useContext(MeContext);
 
-  const { data: followersData } = useFollower(me);
+  const { data: followersData } = useFollowers(me);
   const { data: followingsData } = useFollowings(me);
 
   return (

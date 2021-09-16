@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { createRef, FC, useEffect, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
-import Header from '../components/common/Header';
-import { ITweet } from '../interfaces';
-import Cards from '../components/common/card/Cards';
-import UserInfo from '../components/profile/UserInfo';
+import Header from '../../components/common/Header';
+import { ITweet } from '../../interfaces';
+import Cards from '../../components/common/card/Cards';
+import UserInfo from '../../components/profile/UserInfo';
 import { useParams } from 'react-router';
 
 const getKey =

@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';
 import Main from './pages/main';
-import Profile from './pages/profile';
+import Profile from './pages/profile/profile';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Follower from './pages/follower';
+import Follower from './pages/profile/follower';
 
 const App: FC = () => {
   // const token = localStorage.getItem('token');
