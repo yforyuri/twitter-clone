@@ -11,7 +11,7 @@ const FollowerCard: FC<FollowCardProps> = ({ follower }) => {
     <li>
       <ProfileIcon userId={follower.following.id} />
       <div>
-        <div>${follower.following.nickname}</div>
+        <div>{follower.following.nickname}</div>
         <div>
           {follower.following.introduce
             ? follower.following.introduce

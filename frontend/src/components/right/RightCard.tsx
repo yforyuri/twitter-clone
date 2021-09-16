@@ -12,7 +12,7 @@ const RightCard: FC<RightCardProps> = ({ id, nickname, introduce }) => {
   return (
     <div className="w-80">
       <Link className="flex px-4 py-2 hover:bg-gray-300" to={`/profile/${id}`}>
-        <ProfileIcon userId={1} />
+        <ProfileIcon userId={id} />
         <div className="flex items-center justify-between w-full ml-2">
           <div>
             <div>{nickname}</div>
