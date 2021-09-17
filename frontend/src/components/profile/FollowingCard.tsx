@@ -13,8 +13,8 @@ const FollowingCard: FC<FollowingCardProps> = ({ following }) => {
       <li className="flex border-b-1">
         <div className="flex m-4">
           <ProfileIcon userId={following.follower.id} />
-          <div className="mt-1 ml-3 text-sm w-full mr-4">
-            <div>{following.follower.nickname}</div>
+          <div className="mt-1 ml-3 text-sm w-full">
+            <div className="font-bold">{following.follower.nickname}</div>
             <div>
               {following.follower.introduce
                 ? following.follower.introduce
