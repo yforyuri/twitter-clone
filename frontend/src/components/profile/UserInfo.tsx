@@ -127,13 +127,16 @@ const UserInfo: FC = () => {
         </div>
         <div className="w-full">
           <div className="flex justify-around w-full text-center mt-4 mb-2">
-            <div>
-              <div>Following</div>
-              <div>{profileInfoData?.followings.length}</div>
-            </div>
             <Link
               className="hover:text-purple-500"
-              to={`/profile/${userId}/followers`}
+              to={`/profile/${userId}/following`}
+            >
+              <div>Following</div>
+              <div>{profileInfoData?.followings.length}</div>
+            </Link>
+            <Link
+              className="hover:text-purple-500"
+              to={`/profile/${userId}/follower`}
             >
               <div>Follower</div>
               <div>{profileInfoData?.followers.length}</div>
