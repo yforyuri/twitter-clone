@@ -1,14 +1,7 @@
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, FormEvent, useContext, useState } from 'react';
 import { MutatorCallback } from 'swr/dist/types';
 import ProfileIcon from '../common/ProfileIcon';
 import { ITweet } from '../../interfaces';
@@ -61,7 +54,7 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
     }
   };
 
-  useEffect(() => console.log(localStorage.getItem('token')));
+  // useEffect(() => console.log(localStorage.getItem('token')));
 
   return (
     <div className="border-b-1 flex">

@@ -15,7 +15,7 @@ const RightCard: FC<RightCardProps> = ({ id, nickname, introduce }) => {
         <ProfileIcon userId={id} />
         <div className="flex items-center justify-between w-full ml-2">
           <div>
-            <div>{nickname}</div>
+            <div className="font-bold">{nickname}</div>
             <div>{introduce}</div>
           </div>
         </div>

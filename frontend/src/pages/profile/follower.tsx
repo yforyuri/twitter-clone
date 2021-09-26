@@ -1,4 +1,4 @@
-import React, { createRef, FC, useEffect } from 'react';
+import React, { createRef, FC } from 'react';
 import useSWR from 'swr';
 import Header from '../../components/common/Header';
 import UserInfo from '../../components/profile/UserInfo';
@@ -16,7 +16,7 @@ const Follower: FC = () => {
     fetcher,
   );
 
-  useEffect(() => console.log(data), [data]);
+  // useEffect(() => console.log(data), [data]);
 
   return (
     <>
